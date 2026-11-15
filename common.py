@@ -22,8 +22,7 @@ import torch.nn as nn
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-DATASETS = {'hopper': 'mujoco/hopper/medium-v0',
-            'halfcheetah': 'mujoco/halfcheetah/medium-v0'}
+DATASETS = {'hopper': 'mujoco/hopper/medium-v0'}
 
 # Reference returns for the normalized score
 #     score = 100 * (R - R_random) / (R_expert - R_random).
@@ -33,8 +32,7 @@ DATASETS = {'hopper': 'mujoco/hopper/medium-v0',
 # matching Minari expert-v0 dataset (mujoco/<env>/expert-v0).
 # They differ from the old D4RL references (which used other environments
 # and other expert policies), so the scores are not comparable with D4RL tables.
-REF_RETURNS = {'hopper': (17.0, 3857.8),
-               'halfcheetah': (-275.3, 16242.9)}
+REF_RETURNS = {'hopper': (17.0, 3857.8)}
 
 
 def normalized_score(task, ret):
@@ -133,7 +131,7 @@ def soft_update(target, source, tau):
 @torch.no_grad()
 def evaluate(policy, buffer, task, episodes=10, seed=0):
     '''Mean return of the (deterministic) policy in the real environment.'''
-    env = buffer.dataset.recover_environment()      # Hopper-v5 / HalfCheetah-v5
+    env = buffer.dataset.recover_environment()      # Hopper-v5
     returns = []
     for k in range(episodes):
         obs, _ = env.reset(seed=seed + 1000 * k)

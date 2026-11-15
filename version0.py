@@ -17,8 +17,7 @@ which helps every version here.
 
 Lecture: https://parag1604.github.io/notes/Reinforcement-Learning/Offline-Reinforcement-Learning
 
-Run:  python version0.py --task hopper
-      python version0.py --task halfcheetah
+Run:  python version0.py
 """
 import torch
 import torch.nn.functional as F

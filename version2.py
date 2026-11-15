@@ -28,9 +28,9 @@ CQL; then it switches to the SAC objective, maximizing the conservative Q.
 Lecture: https://parag1604.github.io/notes/Reinforcement-Learning/Offline-Reinforcement-Learning
 (conservative value estimates).
 
-Run:  python version2.py --task hopper
-      python version2.py --task hopper --cql-alpha 0    (no CQL: plain offline SAC)
-      python version2.py --task hopper --bc-steps 0     (no warm-up)
+Run:  python version2.py
+      python version2.py --cql-alpha 0    (no CQL: plain offline SAC)
+      python version2.py --bc-steps 0     (no warm-up)
 """
 import copy
 import math

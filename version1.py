@@ -23,8 +23,8 @@ State normalization (common.py) is also part of the paper's recipe.
 Lecture: https://parag1604.github.io/notes/Reinforcement-Learning/Offline-Reinforcement-Learning
 (policy constraints).
 
-Run:  python version1.py --task hopper
-      python version1.py --task halfcheetah --alpha 0    (pure BC actor)
+Run:  python version1.py
+      python version1.py --alpha 0    (pure BC actor)
 """
 import copy
 

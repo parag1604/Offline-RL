@@ -16,8 +16,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 RUNS, OUT = 'runs', 'static'
-TASKS = {'hopper': 'Hopper (mujoco/hopper/medium-v0)',
-         'halfcheetah': 'HalfCheetah (mujoco/halfcheetah/medium-v0)'}
+TASKS = {'hopper': 'Hopper (mujoco/hopper/medium-v0)'}
 VERSIONS = {'v0': ('v0: BC', '#0072B2'),
             'v1': ('v1: TD3+BC', '#D55E00'),
             'v2': ('v2: CQL', '#009E73')}
@@ -33,7 +32,8 @@ def main():
             for v in VERSIONS for t in TASKS}
 
     # learning curves
-    fig, axes = plt.subplots(1, 2, figsize=(11, 4))
+    fig, ax0 = plt.subplots(figsize=(6.5, 4.6))
+    axes = [ax0]
     for ax, (t, title) in zip(axes, TASKS.items()):
         for v, (label, c) in VERSIONS.items():
             d = data[(v, t)]
@@ -49,12 +49,13 @@ def main():
         ax.set_xlabel('gradient steps (thousands)')
         ax.set_ylabel('normalized score')
         ax.grid(alpha=0.3)
-    axes[0].legend(fontsize=9)
-    fig.tight_layout()
+    fig.legend(*axes[0].get_legend_handles_labels(), loc='lower center', ncol=3,
+               fontsize=9, frameon=False)
+    fig.tight_layout(rect=(0, 0.13, 1, 1))
     fig.savefig(f'{OUT}/learning_curves.png', dpi=150)
 
     # final scores
-    fig, ax = plt.subplots(figsize=(6.5, 3.8))
+    fig, ax = plt.subplots(figsize=(4.5, 3.8))
     w = 0.25
     for j, (v, (label, c)) in enumerate(VERSIONS.items()):
         vals = [final(data[(v, t)]['scores']) for t in TASKS]
@@ -64,7 +65,7 @@ def main():
     for i, t in enumerate(TASKS):
         ax.hlines(data[('v0', t)]['dataset_score'], i - 1.6 * w, i + 1.6 * w,
                   color='gray', ls='--')
-    ax.set_xticks(range(len(TASKS)), ['Hopper medium', 'HalfCheetah medium'])
+    ax.set_xticks(range(len(TASKS)), ['Hopper medium'])
     ax.set_ylabel('final normalized score')
     ax.set_ylim(0, 115)
     ax.legend(fontsize=8, loc='upper right', ncol=3)
